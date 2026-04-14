@@ -1,2 +1,0 @@
-/alumni-portal.html  /alumni.html  401  Role=alumni
-/*                   /index.html   200
