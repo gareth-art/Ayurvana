@@ -3,9 +3,12 @@
 <head>
 <script>
   // Catch Netlify invite tokens and route to custom accept page
-  if (window.location.hash.includes('invite_token=')) {
-    window.location.replace('accept-invite.html' + window.location.hash);
+  (function() {
+  var hash = window.location.hash;
+  if (hash && hash.includes('invite_token=')) {
+    window.location.replace('/accept-invite.html' + hash);
   }
+})();
 </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
