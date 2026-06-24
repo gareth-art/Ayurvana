@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="slides-format" content="viewport" />
+  <title>Ayurvana Corporate Brochure</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-bg: #f0ebe0;
+      --color-bg-deep: #e6dfd0;
+      --color-surface: #f8f3e8;
+      --color-text: #2f261f;
+      --color-text-secondary: #5e5146;
+      --color-text-muted: #8a7b6d;
+      --color-accent-1: #566b2f;
+      --color-accent-2: #b07a3f;
+      --color-accent-3: #d6b26e;
+      --color-glass-bg: rgba(255,255,255,0.74);
+      --color-glass-border: rgba(47,38,31,0.08);
+      --color-vignette: rgba(47,38,31,0.07);
+      --font-display: 'Lora', serif;
+      --font-body: 'Inter', sans-serif;
+    }
+  </style>
+  <style>
+    :root { --color-bg: #f0ebe0; --color-text: #2f261f; --glow-color-rgb: 86,107,47; }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { background: var(--color-bg); margin: 0; }
+    body { font-family: 'Inter', sans-serif; color: var(--color-text); overflow: hidden; height: 100vh; width: 100vw; }
+    .deck { width: 100vw; height: 100vh; position: relative; }
+    .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--color-bg); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transform: scale(0.985); transition: opacity 0.7s ease, transform 0.7s ease; pointer-events: none; overflow: hidden; }
+    .slide.active { opacity: 1; transform: scale(1); pointer-events: all; }
+    .slide > .content { position: relative; z-index: 2; width: 100%; max-width: 1180px; padding: clamp(1.5rem, 3vw, 3rem); }
+    .nav-controls { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 16px; z-index: 100; background: rgba(255,255,255,0.88); backdrop-filter: blur(10px); padding: 10px 22px; border-radius: 40px; border: 1px solid rgba(47,38,31,0.08); box-shadow: 0 8px 24px rgba(47,38,31,0.08); }
+    .nav-btn { width: 40px; height: 40px; border: none; background: rgba(86,107,47,0.08); color: #566b2f; border-radius: 50%; font-size: 1.2rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .slide-dots { display: flex; gap: 8px; }
+    .slide-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(47,38,31,0.14); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+    .slide-dots .dot.active { background: #566b2f; transform: scale(1.3); }
+    .slide-counter { font-size: 0.82rem; color: #8a7b6d; min-width: 44px; text-align: center; }
+    .reveal { opacity: 0; transform: translateY(20px); }
+    .gradient-mesh { position: absolute; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+    .blob { position: absolute; border-radius: 50%; filter: blur(80px); animation: float-slow 14s ease-in-out infinite; }
+    .blob:nth-child(2) { animation: float-drift 18s ease-in-out infinite; }
+    .blob:nth-child(3) { animation: float-slow 20s ease-in-out infinite reverse; }
+    @keyframes float-slow { 0% { transform: translate(0,0) scale(1);} 25% { transform: translate(40px,-30px) scale(1.08);} 50% { transform: translate(-20px,20px) scale(0.94);} 75% { transform: translate(28px,16px) scale(1.05);} 100% { transform: translate(0,0) scale(1);} }
+    @keyframes float-drift { 0% { transform: translate(0,0) scale(1);} 33% { transform: translate(-45px,-40px) scale(1.1);} 66% { transform: translate(28px,24px) scale(0.92);} 100% { transform: translate(0,0) scale(1);} }
+    @keyframes float { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-12px);} }
+    .slide::before { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); opacity: 0.03; }
+    .slide::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(ellipse at center, transparent 48%, rgba(47,38,31,0.07) 100%); }
+    .hero-badge, .card, .metric, .price-card { background: rgba(255,250,242,0.84); border: 1px solid rgba(47,38,31,0.08); box-shadow: 0 14px 36px rgba(47,38,31,0.08); backdrop-filter: blur(8px); }
+    .section-kicker { letter-spacing: .18em; text-transform: uppercase; font-size: .78rem; color: #8a7b6d; }
+    .deco-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(176,122,63,0.45), transparent); }
+    .bar-track { background: rgba(47,38,31,0.08); border-radius: 999px; height: 14px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #566b2f, #b07a3f); width: 0%; }
+    .table-like { display: grid; grid-template-columns: 1.1fr 1.2fr; gap: 14px; }
+    .table-row { display: contents; }
+    .table-cell { padding: 14px 16px; border-radius: 16px; background: rgba(255,255,255,0.54); border: 1px solid rgba(47,38,31,0.06); }
+    .price-card { border-radius: 24px; padding: 24px; }
+    .map-box { border-radius: 28px; overflow: hidden; border: 1px solid rgba(47,38,31,0.08); box-shadow: 0 16px 42px rgba(47,38,31,0.10); background: #e9dfcf; }
+    .map-box iframe { width: 100%; height: 100%; border: 0; filter: saturate(0.8) contrast(0.96); }
+    .small { font-size: 0.92rem; }
+    .slide-1 .content { text-align: center; }
+
+    /* =====================
+       MOBILE RESPONSIVE
+    ===================== */
+    @media (max-width: 768px) {
+
+      /* Allow scrolling on mobile instead of locking to viewport */
+      body {
+        overflow-y: auto !important;
+        height: auto !important;
+        width: 100% !important;
+      }
+
+      /* Deck and slides: stack vertically instead of absolute layers */
+      .deck {
+        height: auto !important;
+        width: 100% !important;
+        position: relative;
+      }
+
+      .slide {
+        position: relative !important;
+        opacity: 1 !important;
+        transform: none !important;
+        pointer-events: all !important;
+        display: none;
+        height: auto !important;
+        min-height: 100vh;
+        width: 100% !important;
+        padding-bottom: 100px;
+      }
+
+      .slide.active {
+        display: flex !important;
+      }
+
+      /* Content max-width for mobile */
+      .slide > .content {
+        max-width: 100% !important;
+        padding: 1.5rem 1.25rem !important;
+      }
+
+      /* Shrink oversized blobs so they don't overflow */
+      .blob {
+        width: 200px !important;
+        height: 200px !important;
+      }
+
+      /* Stack all 3-column grids to single column */
+      .grid-cols-3,
+      [class*="grid-cols-3"] {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Stack 2-column grids to single column */
+      .grid-cols-2,
+      [class*="grid-cols-2"],
+      .table-like {
+        grid-template-columns: 1fr !important;
+      }
+
+      /* Responsive typography overrides */
+      h1 { font-size: 2.4rem !important; }
+      h2 { font-size: 1.8rem !important; }
+      h3 { font-size: 1.3rem !important; }
+      p  { font-size: 1rem !important; }
+
+      /* Nav controls - make slightly larger touch targets */
+      .nav-controls {
+        bottom: 14px;
+        padding: 8px 16px;
+        gap: 12px;
+        max-width: 90vw;
+      }
+
+      .nav-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+      }
+
+      .slide-counter {
+        font-size: 0.75rem;
+        min-width: 36px;
+      }
+
+      /* Cards: full width, reduce padding */
+      .card,
+      .metric,
+      .price-card,
+      .hero-badge {
+        padding: 16px !important;
+        border-radius: 16px !important;
+      }
+
+      /* Map box height on mobile */
+      .map-box {
+        height: 260px !important;
+      }
+
+      /* Bar track labels */
+      .bar-track {
+        height: 10px;
+      }
+
+/* Pillar grid: hide on mobile, show accordion instead */
+.pillar-grid { display: none !important; }
+.pillar-accordion { display: flex !important; flex-direction: column; gap: 10px; margin-top: 1.5rem; }
+.pillar-item {
+  background: rgba(255,250,242,0.84);
+  border: 1px solid rgba(47,38,31,0.08);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.pillar-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.pillar-chevron {
+  font-size: 1.1rem;
+  color: #566b2f;
+  transition: transform 0.25s ease;
+}
+.pillar-btn.open .pillar-chevron { transform: rotate(180deg); }
+.pillar-body {
+  display: none;
+  padding: 0 18px 14px;
+  font-size: 0.92rem;
+  color: #5e5146;
+  line-height: 1.55;
+}
+.pillar-body.open { display: block; }
+
+    }
+
+    /* Extra small screens (phones < 480px) */
+    @media (max-width: 480px) {
+      .slide > .content {
+        padding: 1.25rem 1rem !important;
+      }
+      h1 { font-size: 2rem !important; }
+      h2 { font-size: 1.5rem !important; }
+      .nav-controls {
+        gap: 8px;
+        padding: 7px 12px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+<div class="deck">
+  <div class="slide slide-1 active" data-slide="1">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:420px;height:420px;top:-100px;right:-80px;background:#566b2f;opacity:.12"></div>
+      <div class="blob" style="width:300px;height:300px;bottom:-80px;left:-40px;background:#d6b26e;opacity:.14"></div>
+      <img src="images/logo.png" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(340px,32vw);opacity:0.13;z-index:0;pointer-events:none;mix-blend-mode:multiply;" alt="Ayurvana logo watermark" />
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content">
+      <div class="section-kicker reveal">Corporate retreat overview</div>
+      <h1 class="font-display text-[clamp(2.7rem,6vw,5.2rem)] font-bold tracking-tight text-[#2f261f] mt-4 reveal">Ayurvana</h1>
+      <p class="text-[clamp(1rem,1.8vw,1.35rem)] text-text-secondary max-w-3xl mx-auto mt-4 reveal">Rejuvenate. Reconnect. Return.</p>
+      <p class="text-[clamp(1.05rem,1.9vw,1.35rem)] text-text-secondary max-w-4xl mx-auto mt-8 leading-relaxed reveal">A 3-day immersive corporate wellness retreat in Ubud, Bali, designed to help teams reset from the inside out through a structured five-pillar programme combining Yoga, Mindfulness, Pilates, Nutrition, and Coaching.</p>
+      <div class="grid grid-cols-3 gap-5 mt-10 reveal">
+        <div class="hero-badge rounded-2xl p-5"><div class="text-3xl font-semibold font-display text-accent-1">5</div><div class="small text-text-secondary mt-2">Integrated pillars working in sequence</div></div>
+        <div class="hero-badge rounded-2xl p-5"><div class="text-3xl font-semibold font-display text-accent-1">3</div><div class="small text-text-secondary mt-2">Immersive days in Ubud, Bali</div></div>
+        <div class="hero-badge rounded-2xl p-5"><div class="text-3xl font-semibold font-display text-accent-1">12</div><div class="small text-text-secondary mt-2">Participant cap for depth and facilitator access</div></div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="slide slide-2" data-slide="2">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:350px;height:350px;top:-80px;right:-60px;background:#566b2f;opacity:.08"></div>
+      <div class="blob" style="width:280px;height:280px;bottom:-60px;left:-40px;background:#d6b26e;opacity:.10"></div>
+    </div>
+    <div class="content">
+      <div class="section-kicker reveal">The Challenge</div>
+      <h2 class="font-display text-[clamp(2.1rem,4vw,3.2rem)] font-bold mt-3 reveal">High performance has a hidden cost.</h2>
+      <div class="grid grid-cols-3 gap-6 mt-8">
+        <div class="card rounded-[20px] p-7 reveal" style="border-top:3px solid #566b2f;">
+          <div class="font-display reveal" style="font-size:2.6rem;font-weight:800;color:#566b2f;" data-count="76" data-suffix="%">76%</div>
+          <p class="mt-3 text-sm leading-relaxed" style="color:#5e5146;">of employees report experiencing burnout at work at least sometimes</p>
+        </div>
+        <div class="card rounded-[20px] p-7 reveal" style="border-top:3px solid #b07a3f;">
+          <div class="font-display reveal" style="font-size:2.6rem;font-weight:800;color:#b07a3f;">$322B</div>
+          <p class="mt-3 text-sm leading-relaxed" style="color:#5e5146;">annual global cost of burnout from turnover and lost productivity</p>
+        </div>
+        <div class="card rounded-[20px] p-7 reveal" style="border-top:3px solid #8a7b6d;">
+          <div class="font-display reveal" style="font-size:2.6rem;font-weight:800;color:#8a7b6d;">1 in 4</div>
+          <p class="mt-3 text-sm leading-relaxed" style="color:#5e5146;">employees in financial services report high levels of workplace stress</p>
+        </div>
+      </div>
+      <div class="card rounded-[20px] p-6 mt-6 reveal">
+        <p class="text-sm leading-relaxed" style="color:#5e5146;font-style:italic;">Most wellness offerings treat symptoms in isolation. Ayurvana addresses the root causes through a compounding five-pillar system designed to reset the whole person, not just one dimension of their health.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-3" data-slide="3">
+    <div class="gradient-mesh"><div class="blob" style="width:300px;height:300px;top:-80px;right:-60px;background:#566b2f;opacity:.08"></div><div class="blob" style="width:250px;height:250px;bottom:-70px;left:-40px;background:#d6b26e;opacity:.09"></div></div>
+    <div class="content">
+      <div class="section-kicker reveal">Why it matters</div>
+      <h2 class="font-display text-[clamp(2.1rem,4vw,3.2rem)] font-bold mt-3 reveal">Why companies choose Ayurvana</h2>
+      <div class="grid grid-cols-2 gap-8 mt-8">
+        <div class="card rounded-[24px] p-7 reveal">
+          <p class="text-lg leading-relaxed text-text-secondary">Modern teams operate under sustained pressure, fragmented attention, and constant output demands, which can erode energy, resilience, focus, and cohesion over time.</p>
+          <div class="deco-line my-6"></div>
+          <p class="text-lg leading-relaxed text-text-secondary">Ayurvana offers a structured offsite experience that creates space for individual reset, collective reconnection, and meaningful reflection, while remaining premium, professionally led, and relevant to high-performing teams.</p>
+        </div>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="metric rounded-2xl p-5 reveal"><div class="font-semibold text-accent-1">Leadership Reset</div><div class="text-text-secondary mt-2">Designed for senior leaders navigating sustained cognitive load and high decision fatigue.</div></div>
+          <div class="metric rounded-2xl p-5 reveal"><div class="font-semibold text-accent-1">Management Resilience</div><div class="text-text-secondary mt-2">For teams seeking a strategic pause, renewed clarity, and stronger internal alignment.</div></div>
+          <div class="metric rounded-2xl p-5 reveal"><div class="font-semibold text-accent-1">Transition Support</div><div class="text-text-secondary mt-2">Useful after intense growth, before planning cycles, or when teams need reconnection.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-4" data-slide="4">
+    <div class="gradient-mesh"><div class="blob" style="width:340px;height:340px;top:-70px;right:-80px;background:#b07a3f;opacity:.08"></div><div class="blob" style="width:220px;height:220px;bottom:-40px;left:-30px;background:#566b2f;opacity:.08"></div></div>
+    <div class="content">
+      <div class="section-kicker reveal">Methodology</div>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold mt-3 reveal">Our five-pillar system</h2>
+      <p class="text-lg text-text-secondary mt-4 max-w-4xl reveal">Ayurvana is built at the intersection of ancient wisdom and modern science. It is not a collection of isolated classes, but a compounding system where each pillar supports the next.</p>
+      
+<!-- Desktop: 5-column grid | Mobile: accordion -->
+<div class="pillar-grid grid grid-cols-5 gap-4 mt-8">
+  <div class="card rounded-2xl p-5 reveal"><div class="font-display text-2xl text-accent-1">Yoga</div><div class="small text-text-secondary mt-3">Releases physical tension and prepares participants for deeper awareness work.</div></div>
+  <div class="card rounded-2xl p-5 reveal"><div class="font-display text-2xl text-accent-1">Mindfulness</div><div class="small text-text-secondary mt-3">Restores steadiness, presence, and mental clarity.</div></div>
+  <div class="card rounded-2xl p-5 reveal"><div class="font-display text-2xl text-accent-1">Pilates</div><div class="small text-text-secondary mt-3">Rebuilds functional strength, posture, balance, and movement quality.</div></div>
+  <div class="card rounded-2xl p-5 reveal"><div class="font-display text-2xl text-accent-1">Nutrition</div><div class="small text-text-secondary mt-3">Supports recovery, cellular energy, and vitality through nutrient-dense meals.</div></div>
+  <div class="card rounded-2xl p-5 reveal"><div class="font-display text-2xl text-accent-1">Coaching</div><div class="small text-text-secondary mt-3">Translates the experience into clearer thinking, better habits, and sustained performance.</div></div>
+</div>
+
+<!-- Mobile-only accordion (hidden on desktop) -->
+<div class="pillar-accordion" style="display:none;">
+  <div class="pillar-item">
+    <button class="pillar-btn" onclick="togglePillar(this)">
+      <span class="font-display text-accent-1" style="font-size:1.15rem;">Yoga</span>
+      <span class="pillar-chevron">▾</span>
+    </button>
+    <div class="pillar-body">Releases physical tension and prepares participants for deeper awareness work.</div>
+  </div>
+  <div class="pillar-item">
+    <button class="pillar-btn" onclick="togglePillar(this)">
+      <span class="font-display text-accent-1" style="font-size:1.15rem;">Mindfulness</span>
+      <span class="pillar-chevron">▾</span>
+    </button>
+    <div class="pillar-body">Restores steadiness, presence, and mental clarity.</div>
+  </div>
+  <div class="pillar-item">
+    <button class="pillar-btn" onclick="togglePillar(this)">
+      <span class="font-display text-accent-1" style="font-size:1.15rem;">Pilates</span>
+      <span class="pillar-chevron">▾</span>
+    </button>
+    <div class="pillar-body">Rebuilds functional strength, posture, balance, and movement quality.</div>
+  </div>
+  <div class="pillar-item">
+    <button class="pillar-btn" onclick="togglePillar(this)">
+      <span class="font-display text-accent-1" style="font-size:1.15rem;">Nutrition</span>
+      <span class="pillar-chevron">▾</span>
+    </button>
+    <div class="pillar-body">Supports recovery, cellular energy, and vitality through nutrient-dense meals.</div>
+  </div>
+  <div class="pillar-item">
+    <button class="pillar-btn" onclick="togglePillar(this)">
+      <span class="font-display text-accent-1" style="font-size:1.15rem;">Coaching</span>
+      <span class="pillar-chevron">▾</span>
+    </button>
+    <div class="pillar-body">Translates the experience into clearer thinking, better habits, and sustained performance.</div>
+  </div>
+</div>
+    </div>
+  </div>
+
+  <div class="slide slide-5" data-slide="5">
+    <div class="gradient-mesh"><div class="blob" style="width:300px;height:300px;top:-70px;right:-70px;background:#566b2f;opacity:.08"></div><div class="blob" style="width:250px;height:250px;bottom:-60px;left:-30px;background:#d6b26e;opacity:.08"></div></div>
+    <div class="content">
+      <div class="section-kicker reveal">Programme format</div>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold mt-3 reveal">A structured 3-day experience</h2>
+      <div class="grid grid-cols-2 gap-8 mt-8">
+        <div class="card rounded-[24px] p-7 reveal">
+          <div class="font-semibold text-accent-1">Arrival and baseline</div>
+          <p class="text-text-secondary mt-2 leading-relaxed">The retreat begins with orientation and a Yoga Foundations session designed to bring participants to a shared baseline, making the full programme accessible from Day 1 regardless of prior experience.</p>
+          <div class="deco-line my-5"></div>
+          <div class="font-semibold text-accent-1">Progressive journey</div>
+          <p class="text-text-secondary mt-2 leading-relaxed">Across the retreat, participants move through Yoga, Mindfulness, Pilates, Coaching, reflection circles, and integration in a thoughtfully designed sequence.</p>
+        </div>
+        <div class="grid grid-cols-1 gap-4">
+          <div class="metric rounded-2xl p-5 reveal"><div class="font-semibold">Day 0</div><div class="text-text-secondary mt-2">Arrival, Orientation, Yoga Foundations, Welcome Dinner.</div></div>
+          <div class="metric rounded-2xl p-5 reveal"><div class="font-semibold">Day 1</div><div class="text-text-secondary mt-2">Ayurvana Holistic Flow, Grounding Awareness, Group Coaching, Pilates Foundations, Reflection.</div></div>
+          <div class="metric rounded-2xl p-5 reveal"><div class="font-semibold">Day 2</div><div class="text-text-secondary mt-2">Powerhouse Pilates, Deepened Presence, Integration Workshop, Temple Purification Ritual, Flow Focus 1.</div></div>
+          <div class="metric rounded-2xl p-5 reveal"><div class="font-semibold">Day 3</div><div class="text-text-secondary mt-2">Flow Focus 2, Integration & Presence, Action Planning, Integrated Athletic Pilates Flow, Closing Ceremony.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-6" data-slide="6">
+    <div class="gradient-mesh"><div class="blob" style="width:320px;height:320px;top:-60px;right:-80px;background:#d6b26e;opacity:.08"></div><div class="blob" style="width:220px;height:220px;bottom:-50px;left:-20px;background:#566b2f;opacity:.08"></div></div>
+    <div class="content">
+      <div class="section-kicker reveal">Value drivers</div>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold mt-3 reveal">Programme value at a glance</h2>
+      <div class="grid grid-cols-2 gap-6 mt-8">
+        <div class="card rounded-2xl p-6 reveal"><div class="font-semibold text-accent-1">Specialist facilitators</div><div class="text-text-secondary mt-2">Named pillar directors across Yoga, Mindfulness, Pilates, and Coaching bring depth, credibility, and corporate relevance.</div></div>
+        <div class="card rounded-2xl p-6 reveal"><div class="font-semibold text-accent-1">Small-group intimacy</div><div class="text-text-secondary mt-2">The 12-person cap creates greater facilitator access, stronger group process, and a more premium feel.</div></div>
+        <div class="card rounded-2xl p-6 reveal"><div class="font-semibold text-accent-1">Dense programme design</div><div class="text-text-secondary mt-2">Participants receive multiple guided touchpoints per day, not just accommodation plus a few classes.</div></div>
+        <div class="card rounded-2xl p-6 reveal"><div class="font-semibold text-accent-1">Corporate transfer value</div><div class="text-text-secondary mt-2">The programme is framed around clarity, resilience, reconnection, and sustained performance back at work.</div></div>
+        <div class="card rounded-2xl p-6 reveal"><div class="font-semibold text-accent-1">All-inclusive delivery</div><div class="text-text-secondary mt-2">Accommodation, meals, transfers, and core sessions are wrapped into one operationally simple experience.</div></div>
+        <div class="card rounded-2xl p-6 reveal"><div class="font-semibold text-accent-1">Lasting outcomes</div><div class="text-text-secondary mt-2">Participants leave with practical tools, body awareness, breathwork, and coaching-led action plans they can take home.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-7" data-slide="7">
+    <div class="gradient-mesh"><div class="blob" style="width:300px;height:300px;top:-70px;right:-70px;background:#566b2f;opacity:.08"></div><div class="blob" style="width:250px;height:250px;bottom:-60px;left:-20px;background:#b07a3f;opacity:.08"></div></div>
+    <div class="content">
+      <div class="section-kicker reveal">What’s included</div>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold mt-3 reveal">A complete retreat system</h2>
+      <div class="grid grid-cols-2 gap-8 mt-8">
+        <div class="card rounded-[24px] p-7 reveal">
+          <ul class="space-y-4 text-text-secondary text-lg leading-relaxed">
+            <li class="reveal">3-day guided retreat experience in Ubud, Bali.</li>
+            <li class="reveal">Villa accommodation for the duration of the programme.</li>
+            <li class="reveal">Daily meals designed to support recovery and energy.</li>
+            <li class="reveal">Airport transfers.</li>
+            <li class="reveal">Facilitator-led sessions across the five pillars.</li>
+            <li class="reveal">Integration support and selected 1:1 coaching touchpoints.</li>
+          </ul>
+        </div>
+        <div class="card rounded-[24px] p-7 reveal">
+          <div class="font-semibold text-accent-1">Built for accessibility</div>
+          <p class="text-text-secondary mt-3 leading-relaxed">No prior yoga or Pilates experience is required. Pre-retreat questionnaires, dietary planning, and facilitator-led modifications make the programme suitable for mixed-experience corporate groups.</p>
+          <div class="deco-line my-6"></div>
+          <div class="font-semibold text-accent-1">Beyond the retreat</div>
+          <p class="text-text-secondary mt-3 leading-relaxed">Participants return with practical breathwork tools, coaching insights, movement awareness, and shared team experiences that carry forward into work and daily life.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+
+  <div class="slide slide-8" data-slide="8">
+    <div class="gradient-mesh"><div class="blob" style="width:310px;height:310px;top:-70px;right:-60px;background:#566b2f;opacity:.08"></div><div class="blob" style="width:260px;height:260px;bottom:-50px;left:-20px;background:#d6b26e;opacity:.08"></div></div>
+    <div class="content">
+      <div class="section-kicker reveal">Facilitators</div>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold mt-3 reveal">Guided by specialist pillar directors</h2>
+      <div class="grid grid-cols-2 gap-5 mt-8">
+        <div class="card rounded-2xl p-5 reveal"><div class="font-semibold text-accent-1">Bianca — Yoga</div><div class="small text-text-secondary mt-2">200hr certified under Gregor Maehle and Monica Gauci in Bali, practising since 2012, with over a decade in financial services and weekly classes at the World Bank Group informing her corporate wellness lens.</div></div>
+        <div class="card rounded-2xl p-5 reveal"><div class="font-semibold text-accent-1">Toby — Mindfulness</div><div class="small text-text-secondary mt-2">Founder of Integral Meditation Asia, with over two decades of practice and teaching across leading institutions, including INSEAD, Temasek, Google, Spotify, and Deloitte, bringing evidence-backed mindfulness frameworks to high-performance corporate environments.</div></div>
+        <div class="card rounded-2xl p-5 reveal"><div class="font-semibold text-accent-1">Nadia — Pilates</div><div class="small text-text-secondary mt-2">BASI Comprehensive and Power Pilates NYC trained, with advanced study in functional movement and a track record of corporate group delivery for organisations including RHB Bank and Petronas, designing programmes for mixed-experience teams.</div></div>
+        <div class="card rounded-2xl p-5 reveal"><div class="font-semibold text-accent-1">Marc — Coaching</div><div class="small text-text-secondary mt-2">ICF PCC certified coach with 15 years of experience working with CXOs, founders, and senior leaders across WHO, McKinsey-linked projects, and high-growth organisations, translating complex transitions into clarity and sustained behavioural change.</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-9" data-slide="9">
+    <div class="gradient-mesh"><div class="blob" style="width:320px;height:320px;top:-70px;right:-70px;background:#b07a3f;opacity:.08"></div><div class="blob" style="width:240px;height:240px;bottom:-50px;left:-20px;background:#566b2f;opacity:.08"></div></div>
+    <div class="content">
+      <div class="section-kicker reveal">Location</div>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold mt-3 reveal">Ubud as the setting</h2>
+      <div class="grid grid-cols-2 gap-8 mt-8 items-stretch">
+        <div class="reveal" style="border-radius:20px;overflow:hidden;box-shadow:0 14px 36px rgba(47,38,31,0.12);min-height:320px;">
+          <img src="images/hero-bg.jpg" alt="Ayurvana retreat venue, Ubud Bali" style="width:100%;height:100%;object-fit:cover;object-position:center;" />
+        </div>
+        <div class="card rounded-[24px] p-7 reveal">
+          <div class="font-semibold text-accent-1">Why the location matters</div>
+          <p class="text-text-secondary mt-3 leading-relaxed">Ubud is widely regarded as one of the world’s best-known destinations for deep wellness and conscious travel, making it a credible, high-appeal setting for a premium corporate reset.</p>
+          <div class="deco-line my-6"></div>
+          <ul class="space-y-3 text-text-secondary leading-relaxed">
+            <li>Natural setting that supports decompression and reflection.</li>
+            <li>Premium Bali destination with strong wellness associations.</li>
+            <li>Suitable for both leadership teams and high-performing mixed groups.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide slide-10" data-slide="10">
+    <div class="gradient-mesh"><div class="blob" style="width:320px;height:320px;top:-70px;right:-70px;background:#d6b26e;opacity:.09"></div><div class="blob" style="width:230px;height:230px;bottom:-40px;left:-20px;background:#566b2f;opacity:.08"></div></div>
+    <div class="content">
+      <div class="section-kicker reveal">Programme options</div>
+      <h2 class="font-display text-[clamp(2rem,4vw,3rem)] font-bold mt-3 reveal">Two ways to engage</h2>
+      <div class="grid grid-cols-2 gap-8 mt-8">
+        <div class="price-card reveal">
+          <div class="section-kicker">Option 1</div>
+          <div class="font-display text-4xl text-accent-1 mt-2">Ayurvana Reset</div>
+          <div class="text-2xl font-semibold mt-4">From USD $2,500 <span class="text-base font-normal text-text-muted">per person</span></div>
+          <div class="text-text-secondary mt-3">8–12 participants | Private villa configuration</div>
+          <div class="deco-line my-5"></div>
+          <ul class="space-y-3 text-text-secondary">
+            <li>Full five-pillar programme</li>
+            <li>Accommodation, meals, and transfers</li>
+            <li>Small-group format with integration support</li>
+            <li>Best for team resets and reconnection</li>
+          </ul>
+        </div>
+        <div class="price-card reveal">
+          <div class="section-kicker">Option 2</div>
+          <div class="font-display text-4xl text-accent-1 mt-2">Ayurvana Elevate</div>
+          <div class="text-2xl font-semibold mt-4">Pricing on request</div>
+          <div class="text-text-secondary mt-3">6–8 participants | Fully custom configuration</div>
+          <div class="deco-line my-5"></div>
+          <ul class="space-y-3 text-text-secondary">
+            <li>All core programme inclusions</li>
+            <li>Enhanced facilitation and selected 1:1 coaching</li>
+            <li>Higher privacy for executive teams</li>
+            <li>Best for leadership offsites and founder groups</li>
+          </ul>
+        </div>
+      </div>
+      <p class="text-text-muted mt-6 reveal">Final proposals can be tailored to meet corporate requirements on rooming, dates, and team composition while maintaining the core retreat structure.</p>
+    </div>
+  </div>
+
+  <div class="slide slide-11" data-slide="11">
+    <div class="gradient-mesh">
+      <div class="blob" style="width:420px;height:420px;top:-90px;right:-90px;background:#566b2f;opacity:.12"></div>
+      <div class="blob" style="width:300px;height:300px;bottom:-90px;left:-60px;background:#d6b26e;opacity:.12"></div>
+      <div class="blob" style="width:220px;height:220px;top:40%;left:20%;background:#b07a3f;opacity:.10"></div>
+    </div>
+    <canvas class="particle-canvas" style="position:absolute;inset:0;z-index:1"></canvas>
+    <div class="content text-center">
+      <div class="section-kicker reveal">Next step</div>
+      <h2 class="font-display text-[clamp(2.3rem,5vw,4rem)] font-bold mt-3 reveal">Invite your team to reset differently</h2>
+      <p class="text-xl text-text-secondary max-w-3xl mx-auto mt-6 leading-relaxed reveal">Ayurvana is built for organisations that want their teams to return more grounded, more connected, and better equipped to sustain performance.</p>
+      <div class="grid grid-cols-3 gap-5 mt-10 reveal">
+        <div class="hero-badge rounded-2xl p-5"><div class="font-semibold text-accent-1">Email</div><div class="small text-text-secondary mt-2">hello@ayurvana.org</div></div>
+        <div class="hero-badge rounded-2xl p-5"><div class="font-semibold text-accent-1">Website</div><div class="small text-text-secondary mt-2">ayurvana.org</div></div>
+        <div class="hero-badge rounded-2xl p-5"><div class="font-semibold text-accent-1">Use case</div><div class="small text-text-secondary mt-2">Leadership offsites, founder resets, team reconnection</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="nav-controls">
+  <button class="nav-btn" onclick="changeSlide(-1)">&#8249;</button>
+  <div class="slide-dots" id="dots"></div>
+  <button class="nav-btn" onclick="changeSlide(1)">&#8250;</button>
+  <span class="slide-counter" id="counter">1 / 10</span>
+</div>
+
+<script>
+let current = 1;
+const total = document.querySelectorAll('.slide').length;
+const dotsContainer = document.getElementById('dots');
+const counter = document.getElementById('counter');
+for (let i = 1; i <= total; i++) { const dot = document.createElement('div'); dot.className = 'dot' + (i === 1 ? ' active' : ''); dot.onclick = () => goToSlide(i); dotsContainer.appendChild(dot); }
+function goToSlide(n) { const prev = document.querySelector('.slide.active'); const next = document.querySelector(`.slide[data-slide="${n}"]`); if (prev) prev.classList.remove('active'); if (next) { next.classList.add('active'); animateSlide(next); } current = n; updateNav(); }
+function changeSlide(dir) { let next = current + dir; if (next < 1) next = total; if (next > total) next = 1; goToSlide(next); }
+function updateNav() { document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current)); counter.textContent = current + ' / ' + total; }
+document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); changeSlide(1); } if (e.key === 'ArrowLeft') { e.preventDefault(); changeSlide(-1); } });
+let touchStartX = 0;
+document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+document.addEventListener('touchend', (e) => { const diff = touchStartX - e.changedTouches[0].clientX; if (Math.abs(diff) > 50) changeSlide(diff > 0 ? 1 : -1); });
+function animateSlide(slide) { slide.querySelectorAll('.reveal').forEach((el, i) => { el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.offsetHeight; const delay = i * 0.08; el.style.transition = `opacity 0.35s ease ${delay}s, transform 0.35s ease ${delay}s`; el.style.opacity = '1'; el.style.transform = 'translateY(0px)'; }); animateSlideEffects(slide); }
+function animateSlideEffects(slide) { slide.querySelectorAll('.bar-fill:not(.fill-init)').forEach((bar, i) => { bar.classList.add('fill-init'); bar.style.width = '0%'; bar.style.transition = `width 0.5s ease ${i * 0.08}s`; bar.offsetHeight; bar.style.width = bar.dataset.width + '%'; }); }
+window.initParticles = function(canvas, options) { if (!canvas) return; const ctx = canvas.getContext('2d'); canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; const interactive = options.interactive !== false; const count = options.count || (interactive ? 40 : 16); let mx = -1000, my = -1000; const particles = Array.from({ length: count }, () => ({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25, size: Math.random() * 2.2 + 0.8, alpha: Math.random() * 0.28 + 0.08 })); if (interactive) { canvas.addEventListener('mousemove', (e) => { const rect = canvas.getBoundingClientRect(); mx = e.clientX - rect.left; my = e.clientY - rect.top; }); canvas.addEventListener('mouseleave', () => { mx = -1000; my = -1000; }); } (function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { if (interactive) { const dx = p.x - mx, dy = p.y - my, dist = Math.sqrt(dx * dx + dy * dy); if (dist < 110 && dist > 0) { const force = (110 - dist) / 110 * 1.4; p.vx += (dx / dist) * force * 0.08; p.vy += (dy / dist) * force * 0.08; } } p.vx *= 0.985; p.vy *= 0.985; p.x += p.vx; p.y += p.vy; if (p.x < 0) p.x = canvas.width; if (p.x > canvas.width) p.x = 0; if (p.y < 0) p.y = canvas.height; if (p.y > canvas.height) p.y = 0; ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fillStyle = `rgba(86,107,47,${p.alpha})`; ctx.fill(); }); requestAnimationFrame(animate); })(); };
+document.querySelectorAll('.particle-canvas').forEach(c => window.initParticles(c, { interactive: true, count: 40 }));
+try { animateSlide(document.querySelector('.slide.active')); } catch(e) {}
+
+function togglePillar(btn) {
+  const body = btn.nextElementSibling;
+  const isOpen = btn.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.pillar-btn').forEach(b => {
+    b.classList.remove('open');
+    b.nextElementSibling.classList.remove('open');
+  });
+  // If it wasn't open, open it
+  if (!isOpen) {
+    btn.classList.add('open');
+    body.classList.add('open');
+  }
+}
+
+</script>
+</body>
+</html>
