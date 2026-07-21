@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ayurvana | Summer 2026 Cohort</title>
+<style>
+  :root {
+    --green: #5c7a52;
+    --cream: #f3efe6;
+    --dark: #2b2a26;
+    --accent: #b98b56;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: var(--cream);
+    color: var(--dark);
+    line-height: 1.6;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  header.hero {
+    background: linear-gradient(135deg, #eae4d4, #dcd6c2);
+    padding: 100px 0 80px;
+    text-align: center;
+  }
+  .eyebrow {
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: var(--green);
+    font-family: 'Helvetica', sans-serif;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 44px;
+    font-weight: 400;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+  .hero p.sub {
+    font-size: 18px;
+    max-width: 560px;
+    margin: 0 auto;
+    color: #55534c;
+  }
+  section { padding: 70px 0; }
+  section.alt { background: #ffffff; }
+  h2 {
+    font-size: 30px;
+    font-weight: 400;
+    color: var(--green);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .pillar {
+    text-align: center;
+    padding: 24px 12px;
+  }
+  .pillar-name {
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 8px;
+    font-family: 'Helvetica', sans-serif;
+    letter-spacing: 1px;
+  }
+  .pillar-desc { font-size: 14px; color: #666; }
+  .intro-text {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 17px;
+    color: #444;
+  }
+  .cohort-banner {
+    background: var(--green);
+    color: #fff;
+    text-align: center;
+    padding: 40px 24px;
+    border-radius: 8px;
+    margin: 40px 0;
+  }
+  .cohort-banner h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    font-weight: 400;
+  }
+  .spots {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: 'Helvetica', sans-serif;
+    letter-spacing: 1px;
+    margin-top: 12px;
+  }
+  table.pricing {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    font-family: 'Helvetica', sans-serif;
+  }
+  table.pricing th, table.pricing td {
+    padding: 16px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  table.pricing th {
+    background: var(--green);
+    color: #fff;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+  table.pricing tr.active td {
+    background: #fdf6e8;
+    font-weight: bold;
+  }
+  .price-tag { color: var(--accent); font-size: 20px; font-weight: bold; }
+  .cta-block {
+    text-align: center;
+    margin-top: 50px;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 16px 40px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family: 'Helvetica', sans-serif;
+    letter-spacing: 1px;
+    font-size: 15px;
+    transition: opacity 0.2s;
+  }
+  .btn:hover { opacity: 0.9; }
+  .btn-secondary {
+    background: transparent;
+    border: 1px solid var(--green);
+    color: var(--green);
+    margin-left: 12px;
+  }
+  .note {
+    font-size: 13px;
+    color: #777;
+    margin-top: 16px;
+    max-width: 460px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .downloads {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+  .download-card {
+    background: #fff;
+    border: 1px solid #e0dcd0;
+    border-radius: 8px;
+    padding: 24px;
+    width: 220px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .download-card .dl-text { flex-grow: 1; }
+  .download-card a {
+    display: inline-block;
+    margin-top: 16px;
+    color: var(--green);
+    font-family: 'Helvetica', sans-serif;
+    font-size: 14px;
+    text-decoration: none;
+    border-bottom: 1px solid var(--green);
+  }
+  .faq-item { margin-bottom: 24px; max-width: 700px; margin-left: auto; margin-right: auto; }
+  .faq-q { font-weight: bold; color: var(--dark); margin-bottom: 6px; font-family: 'Helvetica', sans-serif; }
+  .faq-a { color: #555; font-size: 15px; }
+  footer {
+    background: var(--dark);
+    color: #cfcabb;
+    text-align: center;
+    padding: 40px 24px;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 13px;
+  }
+footer a {
+  color: #cfcabb;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+.price-option {
+  border: 1px solid #e6e0d0;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+.price-option:hover { border-color: var(--accent); }
+.price-option.selected {
+  border-color: var(--accent);
+  background: #fdf6e8;
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.price-option-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.price-option-title {
+  font-family: 'Helvetica', sans-serif;
+  color: var(--dark);
+  font-size: 16px;
+}
+.price-option-amount {
+  font-size: 22px;
+  color: var(--accent);
+  font-family: 'Helvetica', sans-serif;
+  font-weight: bold;
+}
+.price-option-sub {
+  font-size: 13px;
+  color: #999;
+  margin-top: 6px;
+}
+.confirm-btn {
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  padding: 16px 40px;
+  border-radius: 4px;
+  font-family: 'Helvetica', sans-serif;
+  letter-spacing: 1px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.confirm-btn:disabled {
+  border-color: #d9d3c7;
+  color: #b3b3b3;
+  cursor: not-allowed;
+}
+.confirm-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
+.confirm-btn.active:hover { opacity: 0.9; }
+
+@media (max-width: 600px) {
+  header.hero { padding: 60px 0 50px; }
+  h1 { font-size: 30px; }
+  h2 { font-size: 24px; }
+  .hero p.sub { font-size: 16px; padding: 0 12px; }
+  .intro-text { font-size: 15px; padding: 0 12px; }
+
+  .price-option-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  .price-option-amount { font-size: 20px; }
+
+  .cta-block .btn-secondary {
+    display: block;
+    margin: 12px auto 0;
+    width: fit-content;
+  }
+
+  .download-card { width: 100%; max-width: 280px; }
+
+  table.pricing th, table.pricing td {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container">
+    <img src="images/logo.png" alt="Ayurvana Logo" style="height:120px;margin-bottom:24px;">
+    <div class="eyebrow">Ayurvana Wellness — Ubud, Bali</div>
+    <h1>Your Summer 2026 Cohort Invitation</h1>
+    <p class="sub">A private welcome prepared just for you, with everything you need to know before joining this season's intimate 3-day retreat circle, running between June and August in Ubud.</p>
+  </div>
+</header>
+
+<section style="position:relative;overflow:hidden;background:#faf7f0;padding:100px 0;">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;max-width:130vw;opacity:0.15;pointer-events:none;background-image:url('images/5pillars.png');background-size:contain;background-repeat:no-repeat;background-position:center;aspect-ratio:1/1;"></div>
+
+  <div class="container" style="position:relative;z-index:1;">
+    <h2>Why This Works Together</h2>
+    <p class="intro-text">You've already told us what you're looking for: a real break for soul and mind. That's not something one pillar can give on its own.</p>
+
+    <div style="max-width:680px;margin:40px auto 0;text-align:center;">
+      <p style="margin-bottom:20px;font-size:16px;color:#3a392f;">A calmer body allows a quieter mind. A quieter mind directs the body with more intention. What you eat sustains both. And without a clear next step, even the deepest reset fades within days of going home. Ayurvana's three days are sequenced so each part carries into the next, rather than existing as separate sessions on a schedule.</p>
+      <p style="font-size:16px;color:#3a392f;">This is exactly why three days in Ubud works differently than fitting a class in between meetings. The shift happens because everything works on you at once, not in isolation.</p>
+    </div>
+
+    <div style="max-width:680px;margin:50px auto 0;text-align:center;border-top:1px solid #e0dcd0;padding-top:40px;">
+      <p style="font-size:18px;font-style:italic;color:var(--green);">Settle the body. Quiet the mind. Restore the system. Decide what's next.</p>
+      <p style="font-size:15px;color:#666;margin-top:16px;">We see this as one continuous process — a returning to the self before returning to the noise.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>How Dates Work</h2>
+    <p class="intro-text">We run Ayurvana in small, unhurried cohorts across June, July and August — never more than 12 guests at a time, so each group gets our full attention. That's why we don't publish a single fixed date months in advance. Instead, we confirm each cohort as it comes together, and give you at least three weeks' notice to plan your travel around it.</p>
+
+    <div style="max-width:680px;margin:40px auto 0;text-align:center;">
+      <p style="font-size:16px;color:#3a392f;">If you have a preferred window within the season, let us know when you get in touch — we'll always try to place you in the cohort that suits you best.</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2>Finding Your Moment</h2>
+    <p class="intro-text">We don't believe in pressuring anyone into a decision that deserves real thought. But we've noticed something: when someone commits early, it usually reflects a readiness that's already there, waiting to be acted on.</p>
+
+    <div style="max-width:680px;margin:40px auto 0;text-align:center;">
+      <p style="font-size:16px;color:#3a392f;margin-bottom:30px;">The programme itself is USD 2,500. How you choose to commit is entirely up to you — we've simply built in a little warmth for those who decide early.</p>
+    </div>
+
+    <div style="max-width:600px;margin:0 auto;" id="pricingSelector">
+
+      <div class="price-option" data-link="https://buy.stripe.com/test_00w3cueiZ6JH2pe0RGcEw01?prefilled_promo_code=UPFRONT20" data-label="Pay in Full" data-amount="USD 2,000" tabindex="0" role="button" aria-pressed="false">
+        <div class="price-option-row">
+          <span class="price-option-title">Paying in full, upfront</span>
+          <span class="price-option-amount">USD 2,000</span>
+        </div>
+        <p class="price-option-sub">A 20% thank-you for committing fully from the start.</p>
+      </div>
+
+      <div class="price-option" data-link="https://buy.stripe.com/test_5kQdR82Ahec9e7W43ScEw00" data-label="Reserve My Place" data-amount="USD 250" tabindex="0" role="button" aria-pressed="false">
+        <div class="price-option-row">
+          <span class="price-option-title">Priority Hold</span>
+          <span class="price-option-amount">USD 250</span>
+        </div>
+        <p style="font-size:13px;color:#999;margin-top:6px;">Holds your place at USD 2,500. Fully refundable while your cohort date is still being confirmed. Once your cohort is confirmed, the deposit becomes non-refundable, reflecting the point at which we commit venue and facilitator resources on your behalf.</p>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:30px;text-align:center;">Either way, once you're with us, the programme and our care for you within it stay exactly the same.</p>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2>When You're Ready</h2>
+    <p class="intro-text">There's no rush to decide tonight. If Ayurvana feels right for you, a small refundable gesture is all it takes to gently hold your place at the Early Bird rate — credited fully toward your programme, and returned to you without question while your cohort is still being confirmed. Full terms are outlined in our <a href="refund-policy.html" style="color:var(--green);text-decoration:none;">Refund Policy</a>.</p>
+    <div class="cta-block">
+      <button id="confirmButton" class="confirm-btn" disabled>Select an option above</button>
+      <p class="note">This opens a secure checkout page. And if anything's still on your mind first, we're always just an email away at <a href="mailto:hello@ayurvana.org" style="color:var(--green);">hello@ayurvana.org</a>.</p>
+ <p style="font-size:12px;color:#999;text-align:center;margin-top:12px;">
+    By reserving your place, you agree to our
+    <a href="terms-and-conditions.html" style="color:var(--green);text-decoration:none;">Terms</a> and
+    <a href="refund-policy.html" style="color:var(--green);text-decoration:none;">Refund Policy</a>.
+  </p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Before You Arrive</h2>
+    <p class="intro-text">Everything you need to prepare, all in one place.</p>
+    <div class="downloads">
+      <div class="download-card">
+        <div class="dl-text">
+          <strong>Onboarding Guideline</strong>
+          <p style="font-size:13px;color:#888;margin-top:8px;">What to expect, day by day</p>
+        </div>
+        <a href="docs/Ayurvana_Onboarding_Guideline.pdf" target="_blank">Download PDF</a>
+      </div>
+      <div class="download-card">
+        <div class="dl-text">
+          <strong>Health &amp; Safety Checklist</strong>
+          <p style="font-size:13px;color:#888;margin-top:8px;">Wellbeing and medical readiness</p>
+        </div>
+        <a href="docs/Ayurvana_Health_Wellbeing_Checklist.pdf" target="_blank">Download PDF</a>
+      </div>
+      <div class="download-card">
+        <div class="dl-text">
+          <strong>Packing List</strong>
+          <p style="font-size:13px;color:#888;margin-top:8px;">What to bring to Ubud</p>
+        </div>
+        <a href="docs/Ayurvana_What_To_Bring.pdf" target="_blank">Download PDF</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<footer>
+  <img src="images/logo.png" alt="Ayurvana Logo" style="height:60px;opacity:0.85;margin-bottom:16px;">
+  <p>Team Ayurvana</p>
+  <p><a href="mailto:hello@ayurvana.org">hello@ayurvana.org</a> &nbsp;|&nbsp; <a href="https://ayurvana.org">ayurvana.org</a></p>
+  <p style="margin-top:12px;font-size:11px;opacity:0.7;">
+    <a href="terms-and-conditions.html">Terms</a> &nbsp;·&nbsp;
+    <a href="refund-policy.html">Refund Policy</a> &nbsp;·&nbsp;
+    <a href="privacy-policy.html">Privacy</a>
+  </p>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const options = document.querySelectorAll('.price-option');
+  const confirmButton = document.getElementById('confirmButton');
+  let selectedLink = null;
+
+  function selectOption(option) {
+    options.forEach(o => {
+      o.classList.remove('selected');
+      o.setAttribute('aria-pressed', 'false');
+    });
+
+    option.classList.add('selected');
+    option.setAttribute('aria-pressed', 'true');
+
+    selectedLink = option.getAttribute('data-link');
+    const label = option.getAttribute('data-label');
+    const amount = option.getAttribute('data-amount');
+
+    confirmButton.textContent = label + ' — ' + amount;
+    confirmButton.disabled = false;
+    confirmButton.classList.add('active');
+  }
+
+  options.forEach(option => {
+    option.addEventListener('click', () => selectOption(option));
+    option.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectOption(option);
+      }
+    });
+  });
+
+  confirmButton.addEventListener('click', function () {
+    if (selectedLink) {
+      window.location.href = selectedLink;
+    }
+  });
+});
+</script>
+
+</body>
+</html>
